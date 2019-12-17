@@ -1,0 +1,33 @@
+import numpy as np                                       #importing rquired packages
+import pandas as pd
+
+train=pd.read_csv('http://web.stanford.edu/class/archive/cs/cs109/cs109.1166/stuff/titanic.csv',header=0) #getting the titanic dataset
+test=train.iloc[:,0]                                     #removing class label i.e,survived
+train=train.drop(['Survived','Sex','Name'],1)
+x_train,x_test,y_train,y_test=train_test_split(train,test,test_size=0.3)  #splitting the data in 70/30 ratio
+
+from sklearn.linear_model import LogisticRegression      #compiling the model
+model=LogisticRegression()
+
+model.fit(x_train,y_train)                               #training the model
+
+result=model.predict(x_test)                             #obtaining the result
+
+
+from sklearn.metrics import confusion_matrix             #applying confusion matrix
+tp,fp,fn,tn=confusion_matrix(result,y_test).ravel()
+
+from sklearn.metrics import accuracy_score,precision_score,recall_score,f1_score
+
+print(accuracy_score(y_test,result))
+
+print(precision_score(y_test,result))                   #y_test=actual value and result=predicted value
+
+print(recall_score(y_test,result))
+
+print(f1_score(y_test,result))
+
+
+
+
+
